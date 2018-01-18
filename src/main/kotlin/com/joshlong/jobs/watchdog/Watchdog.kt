@@ -4,9 +4,9 @@ import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.context.event.EventListener
 import org.springframework.context.support.GenericApplicationContext
-import org.springframework.core.task.TaskExecutor
 import org.springframework.stereotype.Component
 import java.time.Duration
+import java.util.concurrent.Executor
 import java.util.concurrent.atomic.AtomicLong
 
 /**
@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicLong
 @Component
 class Watchdog(
 		private val watchdogProperties: WatchdogProperties,
-		private val executor: TaskExecutor,
+		private val executor: Executor,
 		private val applicationContext: GenericApplicationContext) : InitializingBean {
 
 	private val window = Duration.ofSeconds(
