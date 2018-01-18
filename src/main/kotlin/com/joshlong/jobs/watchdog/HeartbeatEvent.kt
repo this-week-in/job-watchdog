@@ -9,4 +9,4 @@ import org.springframework.context.ApplicationEvent
  *
  * @author <a href="mailto:josh@joshlong.com">Josh Long</a>
  */
-class HeartbeatEvent() : ApplicationEvent(null)
+class HeartbeatEvent : ApplicationEvent("${Watchdog::class.java}")
