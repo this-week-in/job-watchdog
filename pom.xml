@@ -122,6 +122,25 @@
             </snapshots>
         </repository>
         <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>libs-release</name>
+            <url>
+                https://cloudnativejava.artifactoryonline.com/cloudnativejava/libs-release
+            </url>
+        </repository>
+        <repository>
+            <snapshots/>
+            <id>snapshots</id>
+            <name>libs-snapshot</name>
+            <url>
+                https://cloudnativejava.artifactoryonline.com/cloudnativejava/libs-snapshot
+            </url>
+        </repository>
+
+        <repository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
             <url>https://repo.spring.io/milestone</url>
@@ -130,7 +149,6 @@
             </snapshots>
         </repository>
     </repositories>
-
     <pluginRepositories>
         <pluginRepository>
             <id>spring-snapshots</id>
@@ -148,6 +166,25 @@
                 <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
+        <pluginRepository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>plugins-release</name>
+            <url>
+                https://cloudnativejava.artifactoryonline.com/cloudnativejava/plugins-release
+            </url>
+        </pluginRepository>
+        <pluginRepository>
+            <snapshots/>
+            <id>snapshots</id>
+            <name>plugins-snapshot</name>
+            <url>
+                https://cloudnativejava.artifactoryonline.com/cloudnativejava/plugins-snapshot
+            </url>
+        </pluginRepository>
+
     </pluginRepositories>
 
 
