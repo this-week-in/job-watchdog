@@ -33,9 +33,10 @@ class Watchdog(
 		this.watch()
 	}
 
-	/*
-	 * TODO support contributing beans of well-known types that are
-	  * qualified with a custom qualifier annotation (@WatchdogDispose?) to customize shutdown behavior.
+	 /*
+	  * TODO support contributing beans of well-known types that are
+	  * TODO qualified with a custom qualifier annotation (@WatchdogDispose?)
+	  * TODO to customize shutdown behavior.
 	 */
 	fun stop() {
 		this.applicationContext.close()
