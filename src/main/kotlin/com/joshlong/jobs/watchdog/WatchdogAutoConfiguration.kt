@@ -5,7 +5,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.support.GenericApplicationContext
+import org.springframework.core.task.TaskExecutor
+import org.springframework.scheduling.TaskScheduler
 import java.util.concurrent.Executor
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 /**
@@ -16,7 +19,8 @@ import java.util.concurrent.Executors
 class WatchdogAutoConfiguration {
 
 	@Bean
-	@ConditionalOnMissingBean(value = [Executor::class])
+	@ConditionalOnMissingBean(value = [Executor::class, TaskExecutor::class,
+		TaskScheduler::class, ExecutorService::class])
 	fun taskExecutor(): Executor = Executors.newSingleThreadExecutor()
 
 	@Bean
