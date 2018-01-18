@@ -17,9 +17,9 @@ import java.util.concurrent.atomic.AtomicLong
  */
 @Component
 class Watchdog(
-		private val watchdogProperties: WatchdogProperties,
-		private val executor: Executor,
-		private val applicationContext: GenericApplicationContext) : InitializingBean {
+		val watchdogProperties: WatchdogProperties,
+		val executor: Executor,
+		val applicationContext: GenericApplicationContext) : InitializingBean {
 
 	private val window = Duration.ofSeconds(
 			watchdogProperties.inactivityThresholdInSeconds).toMillis()
@@ -33,11 +33,11 @@ class Watchdog(
 		this.watch()
 	}
 
-	 /*
-	  * TODO support contributing beans of well-known types that are
-	  * TODO qualified with a custom qualifier annotation (@WatchdogDispose?)
-	  * TODO to customize shutdown behavior.
-	 */
+	/*
+	 * TODO support contributing beans of well-known types that are
+	 * TODO qualified with a custom qualifier annotation (@WatchdogDispose?)
+	 * TODO to customize shutdown behavior.
+	*/
 	fun stop() {
 		this.applicationContext.close()
 	}
