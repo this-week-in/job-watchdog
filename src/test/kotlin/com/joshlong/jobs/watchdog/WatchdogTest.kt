@@ -30,6 +30,4 @@ class WatchdogTest {
 		Mockito.verify(this.applicationContext, times(1)).close()
 		Assertions.assertThat(System.currentTimeMillis() - start).isGreaterThanOrEqualTo((window + renewals) * 1000L)
 	}
-
-
 }

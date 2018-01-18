@@ -1,7 +1,6 @@
 package com.joshlong.jobs.watchdog
 
-import org.springframework.context.ApplicationContext
-import org.springframework.context.event.ApplicationContextEvent
+import org.springframework.context.ApplicationEvent
 
 
 /**
@@ -10,4 +9,4 @@ import org.springframework.context.event.ApplicationContextEvent
  *
  * @author <a href="mailto:josh@joshlong.com">Josh Long</a>
  */
-class HeartbeatEvent(source: ApplicationContext) : ApplicationContextEvent(source)
+class HeartbeatEvent() : ApplicationEvent(null)
