@@ -14,8 +14,10 @@ class WatchdogTest {
 	private val window = 5
 	private val executor = SimpleAsyncTaskExecutor()
 	private val applicationContext = Mockito.mock(org.springframework.context.support.GenericApplicationContext::class.java)
-	private val watchdog = Watchdog(WatchdogProperties(inactivityThresholdInSeconds = window - 1L),
-			executor, applicationContext)
+	private val watchdogProperties = WatchdogProperties().apply {
+		inactivityThresholdInSeconds = window - 1L
+	}
+	private val watchdog = Watchdog(watchdogProperties, executor, applicationContext)
 
 	@Test
 	fun watchAndStopAfterInactivity() {
