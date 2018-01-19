@@ -15,7 +15,7 @@ import java.util.concurrent.Executor
 class WatchdogAutoConfiguration {
 
 	@Bean
-	@ConditionalOnMissingBean(value = [Executor::class])
+	@ConditionalOnMissingBean
 	fun watchdog(watchdogProperties: WatchdogProperties,
 	             executor: Executor,
 	             genericApplicationContext: GenericApplicationContext) =
