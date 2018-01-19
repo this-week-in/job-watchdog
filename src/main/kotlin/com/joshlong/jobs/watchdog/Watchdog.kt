@@ -31,11 +31,9 @@ class Watchdog(
 	}
 
 	fun stop() {
-		synchronized(this.applicationContext) {
-			this.log.debug("There has been ${window}s of inactivity. " +
-					"Calling ${applicationContext.javaClass.name}#close()")
-			this.applicationContext.close()
-		}
+		this.log.debug("There has been ${window}s of inactivity. " +
+				"Calling ${applicationContext.javaClass.name}#close()")
+		this.applicationContext.close()
 	}
 
 	fun watch() {
