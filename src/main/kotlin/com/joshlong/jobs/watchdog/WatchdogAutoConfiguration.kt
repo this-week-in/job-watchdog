@@ -1,6 +1,5 @@
 package com.joshlong.jobs.watchdog
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
@@ -19,22 +18,17 @@ import java.util.concurrent.Executors
 @EnableConfigurationProperties(WatchdogProperties::class)
 class WatchdogAutoConfiguration {
 
-	@Autowired(required = false)
-	private val executors: Array<Executor>? = null
-
 	@Bean
 	@ConditionalOnMissingBean(value = [Executor::class, TaskExecutor::class,
 		TaskScheduler::class, ExecutorService::class])
-	fun watchdogTaskExecutor(): Executor = Executors.newSingleThreadExecutor()
+	fun watchdogTaskExecutor(): Executor = Executors.newFixedThreadPool(
+			Runtime.getRuntime().availableProcessors())
 
 	@Bean
 	@ConditionalOnMissingBean
 	fun watchdog(watchdogProperties: WatchdogProperties,
+	             executor: Executor,
 	             genericApplicationContext: GenericApplicationContext): Watchdog {
-
-		val executor: Executor = this.executors!!.first()
 		return Watchdog(watchdogProperties, executor, genericApplicationContext)
 	}
-
-
 }

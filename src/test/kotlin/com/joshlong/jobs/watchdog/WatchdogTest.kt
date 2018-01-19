@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Primary
 import org.springframework.context.support.GenericApplicationContext
 import org.springframework.core.task.SimpleAsyncTaskExecutor
 import java.util.concurrent.Executor
@@ -40,7 +41,6 @@ class WatchdogTest {
 		Assertions.assertThat(System.currentTimeMillis() - start).isGreaterThanOrEqualTo((window + renewals) * 1000L)
 	}
 
-
 	@EnableAutoConfiguration
 	@Configuration
 	class SampleApp1 {
@@ -61,6 +61,7 @@ class WatchdogTest {
 		fun te1() = Executors.newSingleThreadExecutor()
 
 		@Bean
+		@Primary
 		fun te2() = Executors.newCachedThreadPool()
 	}
 

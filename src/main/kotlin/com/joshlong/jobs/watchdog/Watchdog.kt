@@ -52,7 +52,7 @@ class Watchdog(
 
 	override fun afterPropertiesSet() {
 		this.executor.execute({
-			this.log.debug("About to begin ${javaClass.name} thread.")
+			this.log.debug("Starting ${javaClass.name} thread.")
 			while (true) {
 				// sleep a number of seconds
 				Thread.sleep(this.watchdogProperties.inactivityHeartbeatInSeconds * 1000)
@@ -66,6 +66,7 @@ class Watchdog(
 					break
 				}
 			}
+			this.log.debug("Finishing ${javaClass.name} thread.")
 		})
 	}
 }
