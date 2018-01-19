@@ -6,6 +6,8 @@ import org.springframework.context.event.EventListener
 import org.springframework.context.support.GenericApplicationContext
 import org.springframework.stereotype.Component
 import java.time.Duration
+import java.time.Instant
+import java.time.ZoneId
 import java.util.concurrent.Executor
 import java.util.concurrent.atomic.AtomicLong
 
@@ -30,18 +32,40 @@ class Watchdog(
 		this.watch()
 	}
 
+	private fun logMemory() {
+
+		val msg = mapOf(
+				"free memory" to Runtime.getRuntime().freeMemory(),
+				"max memory" to Runtime.getRuntime().maxMemory(),
+				"total memory" to Runtime.getRuntime().totalMemory())
+				.map { String.format("${String.format("%20s", it.key)} : ${String.format("%,d", it.value)}") }
+				.joinToString(System.lineSeparator())
+
+		if (this.log.isDebugEnabled) {
+			this.log.debug("""
+			|
+			|${Instant.now().atZone(ZoneId.systemDefault())}
+			|${msg}
+			""".trimMargin())
+		}
+	}
+
 	fun stop() {
 		this.log.debug("There has been ${window}s of inactivity. " +
 				"Calling ${applicationContext.javaClass.name}#close()")
+		this.logMemory()
 		this.applicationContext.close()
 	}
 
 	fun watch() {
+		this.logMemory()
 		this.lastTick.set(System.currentTimeMillis())
 	}
 
 	override fun afterPropertiesSet() {
+
 		this.executor.execute({
+			this.logMemory()
 			this.log.debug("Starting ${javaClass.name} thread.")
 			while (true) {
 				// sleep a number of seconds
