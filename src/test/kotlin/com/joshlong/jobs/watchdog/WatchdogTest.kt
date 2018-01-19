@@ -78,7 +78,7 @@ class WatchdogTest {
 	@Test
 	fun configWithDefaultExecutor() {
 		val ac = SpringApplication.run(SampleApp2::class.java)
-		val wdteBeanName = "watchdogTaskExecutor"
+		val wdteBeanName = "taskScheduler"
 		Assertions.assertThat(ac.containsBean(wdteBeanName)).isTrue()
 		val executor = ac.getBean(wdteBeanName, Executor::class.java)
 		Assertions.assertThat(executor)
