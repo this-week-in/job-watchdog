@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.support.GenericApplicationContext
 import org.springframework.core.task.TaskExecutor
 import org.springframework.scheduling.TaskScheduler
+import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler
 import java.util.concurrent.Executor
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -21,8 +22,8 @@ class WatchdogAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean(value = [Executor::class, TaskExecutor::class,
 		TaskScheduler::class, ExecutorService::class])
-	fun watchdogTaskExecutor(): Executor = Executors.newFixedThreadPool(
-			Runtime.getRuntime().availableProcessors())
+	fun taskScheduler(): Executor = ConcurrentTaskScheduler(
+			Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors()))
 
 	@Bean
 	@ConditionalOnMissingBean
