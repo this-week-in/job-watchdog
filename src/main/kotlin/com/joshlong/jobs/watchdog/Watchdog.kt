@@ -21,11 +21,8 @@ class Watchdog(
 		val executor: Executor,
 		val applicationContext: GenericApplicationContext) : InitializingBean {
 
-	private val window = Duration.ofSeconds(
-			watchdogProperties.inactivityThresholdInSeconds).toMillis()
-
+	private val window = Duration.ofSeconds(watchdogProperties.inactivityThresholdInSeconds).toMillis()
 	private val log = LogFactory.getLog(javaClass)
-
 	private val lastTick = AtomicLong(System.currentTimeMillis())
 
 	@EventListener(HeartbeatEvent::class)
@@ -33,11 +30,6 @@ class Watchdog(
 		this.watch()
 	}
 
-	/*
-	 * TODO support contributing beans of well-known types that are
-	 * TODO qualified with a custom qualifier annotation (@WatchdogDispose?)
-	 * TODO to customize shutdown behavior.
-	*/
 	fun stop() {
 		synchronized(this.applicationContext) {
 			this.log.debug("There has been ${window}s of inactivity. " +
