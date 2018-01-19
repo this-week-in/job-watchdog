@@ -51,7 +51,7 @@ class Watchdog(
 	}
 
 	fun stop() {
-		this.log.debug("There has been ${window}s of inactivity. " +
+		this.log.debug("There have been ${window}s of inactivity. " +
 				"Calling ${applicationContext.javaClass.name}#close()")
 		this.logMemory()
 		this.applicationContext.close()
