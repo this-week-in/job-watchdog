@@ -19,11 +19,13 @@ import java.util.concurrent.Executors
 @EnableConfigurationProperties(WatchdogProperties::class)
 class WatchdogAutoConfiguration {
 
+/*
 	@Bean
 	@ConditionalOnMissingBean(value = [Executor::class, TaskExecutor::class,
 		TaskScheduler::class, ExecutorService::class])
 	fun taskScheduler(): Executor = ConcurrentTaskScheduler(
 			Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors()))
+*/
 
 	@Bean
 	@ConditionalOnMissingBean

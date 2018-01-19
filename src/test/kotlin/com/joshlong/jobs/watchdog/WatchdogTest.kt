@@ -49,9 +49,6 @@ class WatchdogTest {
 		fun executor(): Executor = Executors.newSingleThreadExecutor()
 	}
 
-	@EnableAutoConfiguration
-	@Configuration
-	class SampleApp2
 
 	@EnableAutoConfiguration
 	@Configuration
@@ -69,18 +66,6 @@ class WatchdogTest {
 	fun configWithContextProvidedExecutor() {
 		val ac = SpringApplication.run(SampleApp1::class.java)
 		val executor = ac.getBean("testTaskExecutor", Executor::class.java)
-		Assertions.assertThat(executor)
-		val wd: Watchdog = ac.getBean(Watchdog::class.java)
-		Assertions.assertThat(wd.executor == executor)
-		ac.close()
-	}
-
-	@Test
-	fun configWithDefaultExecutor() {
-		val ac = SpringApplication.run(SampleApp2::class.java)
-		val wdteBeanName = "taskScheduler"
-		Assertions.assertThat(ac.containsBean(wdteBeanName)).isTrue()
-		val executor = ac.getBean(wdteBeanName, Executor::class.java)
 		Assertions.assertThat(executor)
 		val wd: Watchdog = ac.getBean(Watchdog::class.java)
 		Assertions.assertThat(wd.executor == executor)
