@@ -39,7 +39,11 @@ class Watchdog(
 	 * TODO to customize shutdown behavior.
 	*/
 	fun stop() {
-		this.applicationContext.close()
+		synchronized(this.applicationContext) {
+			this.log.debug("There has been ${window}s of inactivity. " +
+					"Calling ${applicationContext.javaClass.name}#close()")
+			this.applicationContext.close()
+		}
 	}
 
 	fun watch() {
@@ -58,9 +62,8 @@ class Watchdog(
 				// test that we haven't slept $window seconds without getting a renewal.
 				// If we have, then close the application context.
 				if (diff > window) {
-					this.log.debug("There has been ${window}s of inactivity. " +
-							"Calling ${applicationContext.javaClass.name}#close()")
 					stop()
+					break
 				}
 			}
 		})
