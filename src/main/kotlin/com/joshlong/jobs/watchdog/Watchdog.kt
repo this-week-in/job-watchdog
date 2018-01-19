@@ -33,15 +33,13 @@ class Watchdog(
 	}
 
 	private fun logMemory() {
-
-		val msg = mapOf(
-				"free memory" to Runtime.getRuntime().freeMemory(),
-				"max memory" to Runtime.getRuntime().maxMemory(),
-				"total memory" to Runtime.getRuntime().totalMemory())
-				.map { String.format("${String.format("%20s", it.key)} : ${String.format("%,d", it.value)}") }
-				.joinToString(System.lineSeparator())
-
 		if (this.log.isDebugEnabled) {
+			val msg = mapOf(
+					"free memory" to Runtime.getRuntime().freeMemory(),
+					"max memory" to Runtime.getRuntime().maxMemory(),
+					"total memory" to Runtime.getRuntime().totalMemory())
+					.map { String.format("${String.format("%20s", it.key)} : ${String.format("%,d", it.value)}") }
+					.joinToString(System.lineSeparator())
 			this.log.debug("""
 			|
 			|${Instant.now().atZone(ZoneId.systemDefault())}
