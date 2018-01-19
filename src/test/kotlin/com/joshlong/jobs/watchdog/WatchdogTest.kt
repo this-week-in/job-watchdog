@@ -49,10 +49,9 @@ class WatchdogTest {
 		fun executor(): Executor = Executors.newSingleThreadExecutor()
 	}
 
-
 	@EnableAutoConfiguration
 	@Configuration
-	class SampleApp3 {
+	class SampleApp2 {
 
 		@Bean
 		fun te1() = Executors.newSingleThreadExecutor()
@@ -74,7 +73,7 @@ class WatchdogTest {
 
 	@Test
 	fun configWithMultipleExecutors() {
-		val ac = SpringApplication.run(SampleApp3::class.java)
+		val ac = SpringApplication.run(SampleApp2::class.java)
 		val executors: Map<String, Executor> = ac.getBeansOfType(Executor::class.java)
 		val wd: Watchdog = ac.getBean(Watchdog::class.java)
 		Assertions.assertThat(executors.values.contains(wd.executor)).isTrue()
