@@ -19,11 +19,12 @@ import java.util.concurrent.atomic.AtomicLong
  */
 @Component
 class Watchdog(
-		val watchdogProperties: WatchdogProperties,
 		val executor: Executor,
-		val applicationContext: GenericApplicationContext) : InitializingBean {
+		private val inactivityThresholdInSeconds: Long,
+		private val inactivityHeartbeatInSeconds: Long,
+		private val applicationContext: GenericApplicationContext) : InitializingBean {
 
-	private val window = Duration.ofSeconds(watchdogProperties.inactivityThresholdInSeconds).toMillis()
+	private val window = Duration.ofSeconds(inactivityThresholdInSeconds).toMillis()
 	private val log = LogFactory.getLog(javaClass)
 	private val lastTick = AtomicLong(System.currentTimeMillis())
 
@@ -48,9 +49,8 @@ class Watchdog(
 		}
 	}
 
-	fun stop() {
-		this.log.debug("There have been ${window}s of inactivity. " +
-				"Calling ${applicationContext.javaClass.name}#close()")
+	private fun stop() {
+		this.log.debug("There have been ${window}s of inactivity. Calling ${applicationContext.javaClass.name}#close()")
 		this.logMemory()
 		this.applicationContext.close()
 	}
@@ -62,12 +62,12 @@ class Watchdog(
 
 	override fun afterPropertiesSet() {
 
-		this.executor.execute({
+		this.executor.execute {
 			this.logMemory()
 			this.log.debug("Starting ${javaClass.name} thread.")
 			while (true) {
 				// sleep a number of seconds
-				Thread.sleep(this.watchdogProperties.inactivityHeartbeatInSeconds * 1000)
+				Thread.sleep(inactivityHeartbeatInSeconds * 1000)
 				val now = System.currentTimeMillis()
 				val then = this.lastTick.get()
 				val diff = now - then
@@ -79,6 +79,6 @@ class Watchdog(
 				}
 			}
 			this.log.debug("Finishing ${javaClass.name} thread.")
-		})
+		}
 	}
 }

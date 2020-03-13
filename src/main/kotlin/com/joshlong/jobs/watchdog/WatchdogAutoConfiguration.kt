@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.support.GenericApplicationContext
 import java.util.concurrent.Executors
+import java.util.concurrent.ScheduledExecutorService
 
 /**
  * @author <a href="mailto:josh@joshlong.com">Josh Long</a>
@@ -15,10 +16,14 @@ import java.util.concurrent.Executors
 class WatchdogAutoConfiguration {
 
 	@Bean
-	fun executor() = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors())
+	fun executor(): ScheduledExecutorService =
+			Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors())
 
 	@Bean
 	@ConditionalOnMissingBean
 	fun watchdog(properties: WatchdogProperties, applicationContext: GenericApplicationContext) =
-			Watchdog(properties, this.executor(), applicationContext)
+			Watchdog(this.executor(),
+					properties.inactivityThresholdInSeconds,
+					properties.inactivityHeartbeatInSeconds,
+					applicationContext)
 }

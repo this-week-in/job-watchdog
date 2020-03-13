@@ -22,18 +22,18 @@ class WatchdogTest {
 	private val window = 5
 	private val executor = SimpleAsyncTaskExecutor()
 	private val applicationContext = Mockito.mock(GenericApplicationContext::class.java)
-	private val watchdogProperties = WatchdogProperties().apply {
-		inactivityThresholdInSeconds = window - 1L
-	}
-	private val watchdog = Watchdog(watchdogProperties, executor, applicationContext)
+	private val watchdogProperties = WatchdogProperties(inactivityThresholdInSeconds = window - 1L)
+	private val watchdog = Watchdog(
+			executor ,watchdogProperties.inactivityThresholdInSeconds,
+			watchdogProperties.inactivityHeartbeatInSeconds, applicationContext)
 
 	@Test
 	fun watchAndStopAfterInactivity() {
 		val start = System.currentTimeMillis()
 		this.watchdog.afterPropertiesSet()
 		val renewals = 3
-		(0 until renewals).forEach {
-			Thread.sleep(1000)
+		(0 until renewals).forEach { _ ->
+			Thread.sleep(1000L)
 			this.watchdog.watch()
 		}
 		Thread.sleep(window * 1000L)
