@@ -24,7 +24,7 @@ class WatchdogTest {
 	private val applicationContext = Mockito.mock(GenericApplicationContext::class.java)
 	private val watchdogProperties = WatchdogProperties(inactivityThresholdInSeconds = window - 1L)
 	private val watchdog = Watchdog(
-			executor ,watchdogProperties.inactivityThresholdInSeconds,
+			executor, watchdogProperties.inactivityThresholdInSeconds,
 			watchdogProperties.inactivityHeartbeatInSeconds, applicationContext)
 
 	@Test
