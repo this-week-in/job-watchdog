@@ -87,7 +87,7 @@
                             </deployProperties>
                             <publisher>
                                 <contextUrl>
-                                    https://cloudnativejava.artifactoryonline.com/cloudnativejava
+                                    https://cloudnativejava.jfrog.io/cloudnativejava
                                 </contextUrl>
                                 <username>${env.ARTIFACTORY_USERNAME}</username>
                                 <password>${env.ARTIFACTORY_PASSWORD}</password>
