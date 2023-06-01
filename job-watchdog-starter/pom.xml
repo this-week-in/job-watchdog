@@ -6,9 +6,9 @@
     <parent>
         <groupId>com.joshlong</groupId>
         <artifactId>job-watchdog-root</artifactId>
-        <version>0.0.3-SNAPSHOT</version>
+        <version>0.0.3</version>
     </parent>
-    <artifactId>lucene-spring-boot-starter</artifactId>
+    <artifactId>job-watchdog-starter</artifactId>
     <properties>
         <java.version>17</java.version>
     </properties>
