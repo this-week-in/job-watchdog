@@ -1,4 +1,4 @@
-package com.joshlong.lucene;
+package com.joshlong.watchdog;
 
 import lombok.extern.log4j.Log4j2;
 import org.apache.lucene.document.Document;

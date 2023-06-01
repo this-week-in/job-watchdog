@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.joshlong</groupId>
-        <artifactId>lucene-spring-boot-starter-root</artifactId>
+        <artifactId>job-watchdog-root</artifactId>
         <version>0.0.3-SNAPSHOT</version>
     </parent>
     <artifactId>lucene-spring-boot-starter</artifactId>
