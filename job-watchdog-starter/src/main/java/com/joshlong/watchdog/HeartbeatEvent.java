@@ -7,7 +7,8 @@ import org.springframework.context.ApplicationEvent;
  */
 public class HeartbeatEvent extends ApplicationEvent {
 
-    public HeartbeatEvent() {
-        super(Watchdog.class.getName());
-    }
+	public HeartbeatEvent() {
+		super(Watchdog.class.getName());
+	}
+
 }
